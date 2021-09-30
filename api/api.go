@@ -28,7 +28,7 @@ type api struct {
 func createNewConfig() config {
 	var cfg config
 	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
-	flag.StringVar(&cfg.env, "env", "dev", "Application Environment")
+	flag.StringVar(&cfg.env, "env", "development", "Application Environment (development | production")
 	flag.StringVar(&cfg.db.dsn, "dsn", "insert db address", "postgres connection string")
 	flag.Parse()
 	return cfg
@@ -38,8 +38,8 @@ func createNewLogger() *log.Logger {
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 	return logger
 }
-func createNewApi() api {
 
+func createNewApi() api {
 	a := api {
 		config: createNewConfig(),
 		logger: createNewLogger(),
