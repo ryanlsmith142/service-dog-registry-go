@@ -2,6 +2,10 @@ package models
 
 import "database/sql"
 
+type DBModel struct {
+	DB *sql.DB
+}
+
 type Models struct {
 	DB DBModel
 }
@@ -27,10 +31,9 @@ type Organization struct {
 
 type User struct {
 	ID int `json:"id""`
-	Name string `json:"name"`
 	FirstName string `json:"firstName"`
 	LastName string `json:"lastName"`
-	Organization string `json:"organization"`
+	OrganizationID string `json:"organizationID"`
 	Email string `json:"email"`
 	Password string `json:"password"`
 }
@@ -39,16 +42,16 @@ type Dog struct {
 	ID int `json:"id""`
 	Name string `json:"name"`
 	WhelpDate string `json:"whelpDate"`
-	Organization string `json:"organization"`
+	OrganizationID string `json:"organizationID"`
 }
 
 type Handler struct {
 	ID int `json:"id""`
-	Name string `json:"name"`
-	CertificationDate string `json:"certifiedDate"`
+	FirstName string `json:"firstName"`
+	LastName string `json:"lastName"`
+	CertificationDate string `json:"certificationDate"`
 	CertificationExpirationDate string `json:"certificationExpirationDate"`
-	Notes string `json:"notes"`
-	Organization string `json:"organization"`
+	OrganizationID string `json:"organizationID"`
 }
 
 
