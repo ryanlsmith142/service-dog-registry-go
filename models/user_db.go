@@ -60,3 +60,4 @@ func (m *DBModel) GetAllUsersForOrganization(id int)([]*User, error) {
 	}
 	return users, nil
 }
+

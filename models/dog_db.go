@@ -26,6 +26,7 @@ func (m *DBModel) GetDog(id int) (*Dog, error){
 	}
 
 	return &dog, nil
+
 }
 
 func (m *DBModel) GetAllDogsForOrganization(id int)([]*Dog, error) {
@@ -56,4 +57,5 @@ func (m *DBModel) GetAllDogsForOrganization(id int)([]*Dog, error) {
 		dogs = append(dogs, &dog)
 	}
 	return dogs, nil
+
 }

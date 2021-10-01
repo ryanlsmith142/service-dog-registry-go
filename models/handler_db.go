@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+
 func (m *DBModel) GetHandler(id int) (*Handler, error){
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -28,6 +29,7 @@ func (m *DBModel) GetHandler(id int) (*Handler, error){
 	}
 
 	return &handler, nil
+
 }
 
 func (m *DBModel) GetAllHandlersForOrganization(id int)([]*Handler, error) {
@@ -59,5 +61,6 @@ func (m *DBModel) GetAllHandlersForOrganization(id int)([]*Handler, error) {
 		}
 		handlers = append(handlers, &handler)
 	}
+
 	return handlers, nil
 }

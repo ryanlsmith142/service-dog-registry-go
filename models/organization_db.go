@@ -32,6 +32,7 @@ func (m *DBModel) GetOrganization(id int) (*Organization, error){
 	return &organization, nil
 }
 
+
 func (m *DBModel) GetAllOrganizations()([]*Organization, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -65,3 +66,4 @@ func (m *DBModel) GetAllOrganizations()([]*Organization, error) {
 	}
 	return organizations, nil
 }
+
