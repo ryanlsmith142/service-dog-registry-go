@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+
 )
 
 type config struct {
@@ -29,7 +30,7 @@ func createNewConfig() config {
 	var cfg config
 	flag.IntVar(&cfg.port, "port", 4000, "Server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "Application Environment (development | production")
-	flag.StringVar(&cfg.db.dsn, "dsn", "insert db address", "postgres connection string")
+	flag.StringVar(&cfg.db.dsn, "dsn", localDSN, "postgres connection string")
 	flag.Parse()
 	return cfg
 }
