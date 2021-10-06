@@ -27,9 +27,7 @@ func main() {
 		newApi.logger.Fatal(err)
 	}
 
-	newApi = &api {
-		models: models.NewModels(db),
-	}
+	newApi.models = models.NewModels(db)
 
 	defer db.Close()
 

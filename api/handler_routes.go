@@ -1,13 +1,13 @@
 package main
 
 import (
-	"errors"
-	"github.com/julienschmidt/httprouter"
-	"net/http"
-	"strconv"
+"errors"
+"github.com/julienschmidt/httprouter"
+"net/http"
+"strconv"
 )
 
-func(a *api) getDog(w http.ResponseWriter, r *http.Request) {
+func(a *api) getHandler(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
 	id, err := strconv.Atoi(params.ByName("id"))
@@ -17,16 +17,16 @@ func(a *api) getDog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dog, err := a.models.DB.GetDog(id)
+	handler, err := a.models.DB.GetHandler(id)
 
-	err = a.writeJSON(w, http.StatusOK, dog, "dog")
+	err = a.writeJSON(w, http.StatusOK, handler, "handler")
 	if err != nil {
 		a.errorJSON(w, err)
 		return
 	}
 }
 
-func(a *api) getAllDogsForOrganization(w http.ResponseWriter, r *http.Request) {
+func(a *api) getAllHandlersForOrganization(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
 	id, err := strconv.Atoi(params.ByName("id"))
@@ -36,13 +36,11 @@ func(a *api) getAllDogsForOrganization(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dogs, err := a.models.DB.GetAllDogsForOrganization(id)
+	handlers, err := a.models.DB.GetAllHandlersForOrganization(id)
 
-	err = a.writeJSON(w, http.StatusOK, dogs, "dogs")
+	err = a.writeJSON(w, http.StatusOK, handlers, "handlers")
 	if err != nil {
 		a.errorJSON(w, err)
 		return
 	}
 }
-
-
