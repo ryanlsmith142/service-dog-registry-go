@@ -13,6 +13,20 @@ func (a *api) newRouter() http.Handler {
 
 	router.HandlerFunc(http.MethodGet, "/status", a.statusHandler)
 
+	router.HandlerFunc(http.MethodGet, "/v1/user/:id", a.getUser)
+	router.HandlerFunc(http.MethodGet, "/v1/organizationUsers/:id", a.getAllUsersForOrganization)
+
+	router.HandlerFunc(http.MethodGet, "/v1/dog/:id", a.getDog)
+	router.HandlerFunc(http.MethodGet, "/v1/organizationDogs/:id", a.getAllDogsForOrganization)
+
+	router.HandlerFunc(http.MethodGet, "/v1/handler/:id", a.getHandler)
+	router.HandlerFunc(http.MethodGet, "/v1/organizationHandlers/:id", a.getAllHandlersForOrganization)
+
+	router.HandlerFunc(http.MethodGet, "/v1/organization/:id", a.getOrganization)
+	router.HandlerFunc(http.MethodGet, "/v1/organizations", a.getAllOrganizations)
+
+
+
 	return router
 }
 
