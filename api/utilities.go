@@ -20,3 +20,16 @@ func (a *api) writeJSON(w http.ResponseWriter, status int, data interface{}, wra
 
 	return nil
 }
+
+func (api *api) errorJSON(w http.ResponseWriter, err error) {
+	type jsonError struct {
+		Message string `json:"message"`
+	}
+
+	theError := jsonError {
+		Message: err.Error(),
+	}
+
+	api.writeJSON(w, http.StatusBadRequest, theError, "error")
+
+}

@@ -1,10 +1,10 @@
 package main
 
 import (
+	"../models"
 	"flag"
 	"log"
 	"os"
-
 )
 
 type config struct {
@@ -24,6 +24,7 @@ type ApiStatus struct {
 type api struct {
 	config config
 	logger *log.Logger
+	models models.Models
 }
 
 func createNewConfig() config {

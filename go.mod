@@ -1,4 +1,4 @@
-module service-dog-registry-go
+module github.com/ryanlsmith142/service-dog-registry-go
 
 go 1.17
 
