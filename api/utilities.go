@@ -5,6 +5,11 @@ import (
 	"net/http"
 )
 
+type JsonResp struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
 func (a *api) writeJSON(w http.ResponseWriter, status int, data interface{}, wrap string) error {
 	wrapper := make(map[string] interface{})
 	wrapper[wrap] = data

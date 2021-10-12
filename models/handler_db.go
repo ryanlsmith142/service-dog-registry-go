@@ -64,3 +64,27 @@ func (m *DBModel) GetAllHandlersForOrganization(id int)([]*Handler, error) {
 
 	return handlers, nil
 }
+
+func (m *DBModel) UpdateHandler(handler Handler) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `update handlers set firstname = $1, lastname = $2, certificationDate = $3 certificationExpirationDate = $4 organizationID = $5 where id = $6`
+
+	_, err := m.DB.ExecContext(
+		ctx,
+		stmt,
+		handler.FirstName,
+		handler.LastName,
+		handler.CertificationDate,
+		handler.CertificationExpirationDate,
+		handler.OrganizationID,
+		handler.ID,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

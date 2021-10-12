@@ -10,13 +10,8 @@ import (
 	"time"
 )
 
-type jsonResp struct {
-	OK      bool   `json:"ok"`
-	Message string `json:"message"`
-}
-
 type DogPayload struct {
-	ID string `json:"id"`
+	ID string `json:"ID"`
 	Name string `json:"Name"`
 	WhelpDate string `json:"WhelpDate"`
 	OrganizationID string `json:"OrganizationID"`
@@ -93,7 +88,7 @@ func (a *api) editDog(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	ok := jsonResp {
+	ok := JsonResp {
 		OK: true,
 	}
 

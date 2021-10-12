@@ -67,3 +67,26 @@ func (m *DBModel) GetAllOrganizations()([]*Organization, error) {
 	return organizations, nil
 }
 
+func (m *DBModel) UpdateOrganization(organization Organization) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `update organizations set name = $1, createdBy = $2, street = $3, state = $4, zipcode = $5, phoneNumber = $6, email = $7  where id = $8`
+
+	_, err := m.DB.ExecContext(
+		ctx,
+		stmt,
+		organization.CreatedBy,
+		organization.Address.Street,
+		organization.Address.State,
+		organization.Address.Zipcode,
+		organization.PhoneNumber,
+		organization.Email,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
