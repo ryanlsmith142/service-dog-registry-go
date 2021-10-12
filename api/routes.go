@@ -25,8 +25,6 @@ func (a *api) newRouter() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/organization/:id", a.getOrganization)
 	router.HandlerFunc(http.MethodGet, "/v1/organizations", a.getAllOrganizations)
 
-
-
 	return router
 }
 

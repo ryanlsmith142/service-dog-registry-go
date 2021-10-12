@@ -1,6 +1,9 @@
 package models
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
 
 type DBModel struct {
 	DB *sql.DB
@@ -41,7 +44,7 @@ type User struct {
 type Dog struct {
 	ID int `json:"id""`
 	Name string `json:"name"`
-	WhelpDate string `json:"whelpDate"`
+	WhelpDate time.Time `json:"whelpDate"`
 	OrganizationID string `json:"organizationID"`
 }
 
@@ -49,8 +52,8 @@ type Handler struct {
 	ID int `json:"id""`
 	FirstName string `json:"firstName"`
 	LastName string `json:"lastName"`
-	CertificationDate string `json:"certificationDate"`
-	CertificationExpirationDate string `json:"certificationExpirationDate"`
+	CertificationDate time.Time `json:"certificationDate"`
+	CertificationExpirationDate time.Time `json:"certificationExpirationDate"`
 	OrganizationID string `json:"organizationID"`
 }
 

@@ -59,3 +59,18 @@ func (m *DBModel) GetAllDogsForOrganization(id int)([]*Dog, error) {
 	return dogs, nil
 
 }
+
+func (m *DBModel) UpdateDog(dog Dog) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `update dogs set name = $1, whelpDate = $2, organizationID = $3 where id = $4`
+
+	_, err := m.DB.ExecContext(ctx, stmt,dog.Name, dog.WhelpDate, dog.OrganizationID, dog.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
