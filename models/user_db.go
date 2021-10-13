@@ -61,3 +61,18 @@ func (m *DBModel) GetAllUsersForOrganization(id int)([]*User, error) {
 	return users, nil
 }
 
+func (m *DBModel) UpdateUser(user User) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `update users set firstName = $1, lastName = $2, organizationID = $3, email = $4 where id = $5`
+
+	_, err := m.DB.ExecContext(ctx, stmt,user.FirstName, user.LastName, user.OrganizationID, user.Email, user.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
