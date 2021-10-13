@@ -1,12 +1,12 @@
 package main
 
 import (
+	"../models"
 	"encoding/json"
 	"errors"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 func(a *api) getOrganization(w http.ResponseWriter, r *http.Request) {
@@ -39,13 +39,7 @@ func(a *api) getAllOrganizations(w http.ResponseWriter, r *http.Request) {
 	}
 }
 type OrganizationPayload struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
-
-	OrganizationID string `json:"OrganizationID"`
-}
-type Organization struct {
-	ID int `json:"id""`
+	ID string `json:"id""`
 	Name string `json:"name"`
 	CreatedBy string `json:"createdBy"`
 	Address struct {
@@ -57,9 +51,8 @@ type Organization struct {
 	Email string `json:"email"`
 }
 
-
-func (a *api) editDog(w http.ResponseWriter, r *http.Request) {
-	var payload DogPayload
+func (a *api) editOrganization(w http.ResponseWriter, r *http.Request) {
+	var payload OrganizationPayload
 
 	err := json.NewDecoder(r.Body).Decode(&payload)
 	if err != nil {
@@ -68,23 +61,27 @@ func (a *api) editDog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var dog models.Dog
+	var organization models.Organization
 
 	if payload.ID != "0" {
 		id, _ := strconv.Atoi(payload.ID)
-		d, _ := a.models.DB.GetDog(id)
-		dog = *d
+		o, _ := a.models.DB.GetOrganization(id)
+		organization = *o
 	}
 
-	dog.ID, _ = strconv.Atoi(payload.ID)
-	dog.Name = payload.Name
-	dog.WhelpDate, _ = time.Parse("2006-01-02", payload.WhelpDate)
-	dog.OrganizationID = payload.OrganizationID
+	organization.ID, _ = strconv.Atoi(payload.ID)
+	organization.Name = payload.Name
+	organization.CreatedBy = payload.CreatedBy
+	organization.Address.Street = payload.Address.Street
+	organization.Address.Zipcode = payload.Address.Zipcode
+	organization.Address.State = payload.Address.State
+	organization.PhoneNumber = payload.PhoneNumber
+	organization.Email = payload.Email
 
-	if dog.ID == 0 {
+	if organization.ID == 0 {
 		//Insert Dog because dog doesn't exist yet.
 	} else {
-		err = a.models.DB.UpdateDog(dog)
+		err = a.models.DB.UpdateOrganization(organization)
 		if err != nil {
 			a.errorJSON(w, err)
 			return
