@@ -76,3 +76,18 @@ func (m *DBModel) UpdateUser(user User) error {
 	return nil
 }
 
+func (m *DBModel) DeleteUser(user User) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `delete from users where id = $1`
+
+	_, err := m.DB.ExecContext(ctx, stmt, user.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+

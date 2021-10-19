@@ -90,3 +90,18 @@ func (m *DBModel) UpdateOrganization(organization Organization) error {
 
 	return nil
 }
+
+func (m *DBModel) DeleteOrganization(organization Organization) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `delete from organizations where id = $1`
+
+	_, err := m.DB.ExecContext(ctx, stmt, organization.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

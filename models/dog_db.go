@@ -74,3 +74,18 @@ func (m *DBModel) UpdateDog(dog Dog) error {
 
 	return nil
 }
+
+func (m *DBModel) DeleteDog(dog Dog) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `delete from dogs where id = $1`
+
+	_, err := m.DB.ExecContext(ctx, stmt, dog.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

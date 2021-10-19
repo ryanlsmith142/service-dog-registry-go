@@ -88,3 +88,18 @@ func (m *DBModel) UpdateHandler(handler Handler) error {
 
 	return nil
 }
+
+func (m *DBModel) DeleteHandler(handler Handler) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	stmt := `delete from handlers where id = $1`
+
+	_, err := m.DB.ExecContext(ctx, stmt, handler.ID)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
